@@ -1,8 +1,9 @@
-##########################################
+#################################################################
 # Fama French Factors
 # April 2018
 # Qingyi (Freda) Song Drechsler
-##########################################
+# https://www.fredasongdrechsler.com/full-python-code/fama-french
+#################################################################
 
 import pandas as pd
 import numpy as np
