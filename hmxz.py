@@ -1,6 +1,3 @@
-## POR DESENVOLVER: gerar empresas com ROE disponivel
-
-
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
@@ -8,13 +5,6 @@ Created on Sat Aug 22 12:50:57 2020
 
 @author: gcx
 """
-
-##########################################
-# Fama French Factors
-# April 2018
-# Qingyi (Freda) Song Drechsler
-##########################################
-
 import pandas as pd
 import numpy as np
 import datetime as dt
