@@ -38,72 +38,72 @@ from pandas.tseries.offsets import *
 from scipy import stats
 
 ## Load data from WRDS #######################################################
-# conn=wrds.Connection()
+conn=wrds.Connection()
 
-# # set sample date range
-# begdate = '01/01/1966'
-# enddate = '12/31/2019'
+# set sample date range
+begdate = '01/01/1966'
+enddate = '12/31/2019'
 
-# comp = conn.raw_sql(f"""
-#                     select gvkey, datadate, at, pstkl, txditc,
-#                     pstkrv, seq, pstk, ib, sich
-#                     from comp.funda
-#                     where indfmt='INDL' 
-#                     and datafmt='STD'
-#                     and popsrc='D'
-#                     and consol='C'
-#                     and datadate between '{begdate}' and '{enddate}'
-#                     """)
-# # and datadate between '{begdate}' and '{enddate}'
-# # and datadate >= '01/01/1966'
-             
-# compq = conn.raw_sql(f"""
-#                       select gvkey, datadate, ibq, txditcq, seqq,
-#                           ceqq, pstkq, pstkrq, atq, ltq, rdq, fqtr, fyearq
-#                       from comp.fundq
-#                       where indfmt='INDL'
-#                           and datafmt='STD'
-#                           and popsrc='D'
-#                           and consol='C'
-#                           and datadate between '{begdate}' and '{enddate}'
-#                       """)
-# # and datadate between '{begdate}' and '{enddate}'
+comp = conn.raw_sql(f"""
+                    select gvkey, datadate, at, pstkl, txditc,
+                    pstkrv, seq, pstk, ib, sich
+                    from comp.funda
+                    where indfmt='INDL'
+                    and datafmt='STD'
+                    and popsrc='D'
+                    and consol='C'
+                    and datadate between '{begdate}' and '{enddate}'
+                    """)
+# and datadate between '{begdate}' and '{enddate}'
+# and datadate >= '01/01/1966'
 
-# crsp_m = conn.raw_sql(f"""
-#                       select a.permno, a.permco, a.date,
-#                           b.shrcd, b.exchcd, b.siccd,
-#                           a.ret, a.retx, a.shrout, a.prc 
-#                       from crsp.msf as a
-#                       left join crsp.msenames as b
-#                           on a.permno=b.permno
-#                           and b.namedt<=a.date
-#                           and a.date<=b.nameendt
-#                       where a.date between '{begdate}' and '{enddate}' 
-#                           and b.exchcd between 1 and 3
-#                       """) 
-# # where a.date between '01/01/1966' and '12/31/2019' 
+compq = conn.raw_sql(f"""
+                      select gvkey, datadate, ibq, txditcq, seqq,
+                          ceqq, pstkq, pstkrq, atq, ltq, rdq, fqtr, fyearq
+                      from comp.fundq
+                      where indfmt='INDL'
+                          and datafmt='STD'
+                          and popsrc='D'
+                          and consol='C'
+                          and datadate between '{begdate}' and '{enddate}'
+                      """)
+# and datadate between '{begdate}' and '{enddate}'
 
-# dlret = conn.raw_sql("""
-#                      select permno, dlret, dlstdt 
-#                      from crsp.msedelist
-#                      """)
+crsp_m = conn.raw_sql(f"""
+                      select a.permno, a.permco, a.date,
+                          b.shrcd, b.exchcd, b.siccd,
+                          a.ret, a.retx, a.shrout, a.prc
+                      from crsp.msf as a
+                      left join crsp.msenames as b
+                          on a.permno=b.permno
+                          and b.namedt<=a.date
+                          and a.date<=b.nameendt
+                      where a.date between '{begdate}' and '{enddate}'
+                          and b.exchcd between 1 and 3
+                      """)
+# where a.date between '01/01/1966' and '12/31/2019'
 
-# ccm=conn.raw_sql("""
-#                  select gvkey, lpermno as permno, linktype, linkprim,
-#                      linkdt, linkenddt
-#                  from crsp.ccmxpf_linktable
-#                  where substr(linktype,1,1)='L'
-#                      and (linkprim ='C' or linkprim='P')
-#                  """)
+dlret = conn.raw_sql("""
+                     select permno, dlret, dlstdt
+                     from crsp.msedelist
+                     """)
 
-# del conn
+ccm=conn.raw_sql("""
+                 select gvkey, lpermno as permno, linktype, linkprim,
+                     linkdt, linkenddt
+                 from crsp.ccmxpf_linktable
+                 where substr(linktype,1,1)='L'
+                     and (linkprim ='C' or linkprim='P')
+                 """)
+
+del conn
 
 ## Set working directory #####################################################
 
-os.chdir('C:/Data/2020_HMXZ') # My data path in my windows PC
-# os.chdir('../../../Data/2020_HMXZ') # My data path in my windows PC
-# os.chdir('Dropbox/Code/Python/hmxz') # My data path in my linux PC
-# os.chdir('C:/Dropbox/Code/Python/hmxz') # My dropbox path in my windows PC
+# os.chdir('C:/Data/2020_HMXZ') # My data path in my windows PC
+# # os.chdir('../../../Data/2020_HMXZ') # My data path in my windows PC
+# # os.chdir('Dropbox/Code/Python/hmxz') # My data path in my linux PC
+# # os.chdir('C:/Dropbox/Code/Python/hmxz') # My dropbox path in my windows PC
 
 ## Save pandas locally #######################################################
 
@@ -130,35 +130,35 @@ os.chdir('C:/Data/2020_HMXZ') # My data path in my windows PC
 # dlret.to_csv('dlret.csv')
 # ccm.to_csv('ccm.csv')
 
-## Load pandas locally #######################################################
-
-comp = pd.read_pickle('comp.pkl')
-compq = pd.read_pickle('compq.pkl')
-crsp_m = pd.read_pickle('crsp_m.pkl')
-dlret = pd.read_pickle('dlret.pkl')
-ccm = pd.read_pickle('ccm.pkl')
-print('Data loaded from: ' + os.getcwd())
-
-# comp = pd.read_csv('comp.csv')
-# compq = pd.read_csv('compq.csv')
-# crsp_m = pd.read_csv('crsp_m.csv')
-# dlret = pd.read_csv('dlret.csv')
-# ccm = pd.read_csv('ccm.csv')
-
-# comp = pd.read_sas('comp.sas7bdat', format = 'sas7bdat', encoding='latin-1')
-# crsp_m = pd.read_sas('crsp_m.sas7bdat', format = 'sas7bdat', encoding='latin-1')
-# dlret = pd.read_sas('dlret.sas7bdat', format = 'sas7bdat', encoding='latin-1')
-# ccm = pd.read_sas('ccm.sas7bdat', format = 'sas7bdat', encoding='latin-1')
-# crsp_m.columns = map(str.lower, crsp_m.columns)
-# dlret.columns = map(str.lower, dlret.columns)
-
-# ## Load pandas locally (my Stata files)
-# os.chdir('../ccmData')
-# comp = pd.read_stata('COMP.dta')
-# compq = pd.read_stata('COMPQ.dta')
-# crsp_m = pd.read_stata('CRSP_M.dta')
-# dlret = pd.read_stata('DLRET.dta')
-# ccm = pd.read_stata('CCM.dta')
+# ## Load pandas locally #######################################################
+# 
+# comp = pd.read_pickle('comp.pkl')
+# compq = pd.read_pickle('compq.pkl')
+# crsp_m = pd.read_pickle('crsp_m.pkl')
+# dlret = pd.read_pickle('dlret.pkl')
+# ccm = pd.read_pickle('ccm.pkl')
+# print('Data loaded from: ' + os.getcwd())
+# 
+# # comp = pd.read_csv('comp.csv')
+# # compq = pd.read_csv('compq.csv')
+# # crsp_m = pd.read_csv('crsp_m.csv')
+# # dlret = pd.read_csv('dlret.csv')
+# # ccm = pd.read_csv('ccm.csv')
+# 
+# # comp = pd.read_sas('comp.sas7bdat', format = 'sas7bdat', encoding='latin-1')
+# # crsp_m = pd.read_sas('crsp_m.sas7bdat', format = 'sas7bdat', encoding='latin-1')
+# # dlret = pd.read_sas('dlret.sas7bdat', format = 'sas7bdat', encoding='latin-1')
+# # ccm = pd.read_sas('ccm.sas7bdat', format = 'sas7bdat', encoding='latin-1')
+# # crsp_m.columns = map(str.lower, crsp_m.columns)
+# # dlret.columns = map(str.lower, dlret.columns)
+# 
+# # ## Load pandas locally (my Stata files)
+# # os.chdir('../ccmData')
+# # comp = pd.read_stata('COMP.dta')
+# # compq = pd.read_stata('COMPQ.dta')
+# # crsp_m = pd.read_stata('CRSP_M.dta')
+# # dlret = pd.read_stata('DLRET.dta')
+# # ccm = pd.read_stata('CCM.dta')
 
 ## Retirar observacoes duplicadas ------------------------------------------
 comp = comp.drop_duplicates(['gvkey', 'datadate'],keep= 'last')
