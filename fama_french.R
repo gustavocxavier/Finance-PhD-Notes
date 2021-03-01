@@ -1,9 +1,9 @@
 ###############################################################################################################
 ### REPLICATE FAMA-FRENCH-CARHART 4-FACTOR MODEL ####
-# Code by Wayne Chang (https://sites.google.com/site/waynelinchang/home)
-# Latest update assistance from Yifan Liu 
-# Last Update: June 22, 2018
 # Based on methodology described on Ken French website and relevant Fama-French papers
+#
+# Based on Wayne Chang Code (https://sites.google.com/site/waynelinchang/home)
+
 
 ###############################################################################################################
 ### SETUP ###
