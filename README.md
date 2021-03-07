@@ -1,2 +1,2 @@
 # Python-for-EmpiricalFinance
-Python for Empirical Finance
+Previous name of this repository was Python for Empirical Finance
