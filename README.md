@@ -1,2 +1,3 @@
-# Python-for-EmpiricalFinance
-Previous name of this repository was Python for Empirical Finance
+# Finance PhD Notes
+
+Some class notes about Empirical Finance (PhD level)
