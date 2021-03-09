@@ -1,3 +1,3 @@
 # Finance PhD Notes
 
-Some class notes about Empirical Finance (PhD level)
+Some class notes and codes about Empirical Finance (PhD level)
